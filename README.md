@@ -1,4 +1,4 @@
-# ndenv
+# dtenv
 Simple Dart version management
 
 # Installation
