@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="dtenv.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DartGitHub" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://github.com/dart-lang/sdk/releases</Value>
+    </Setting>
+    <Setting Name="UpdateSleep" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="DartOldVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1.1.1</Value>
+    </Setting>
+    <Setting Name="DartURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://storage.googleapis.com/dart-archive/channels/stable/release/{0}/sdk/dartsdk-windows-{1}-release.zip</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
