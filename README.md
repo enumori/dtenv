@@ -8,7 +8,7 @@ Simple Dart version management
 
 ```
 Set-ExecutionPolicy RemoteSigned -scope Process
-Invoke-WebRequest -Uri "https://github.com/enumori/dtenv/releases/download/2021.05.03/dtenv.zip" -OutFile .\dtenv.zip
+Invoke-WebRequest -Uri "https://github.com/enumori/dtenv/releases/download/2021.05.13/dtenv.zip" -OutFile .\dtenv.zip
 Expand-Archive -Path .\dtenv.zip -DestinationPath $env:USERPROFILE
 Remove-Item .\dtenv.zip
 Rename-Item  $env:USERPROFILE\dtenv  $env:USERPROFILE\.dtenv

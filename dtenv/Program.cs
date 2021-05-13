@@ -499,12 +499,12 @@ namespace dtenv
             ErrorCode ret_code = ErrorCode.NO_ERROR;
 
             string dir = System.IO.Path.Combine(_DartDir, version);
-
+            if (!System.IO.Directory.Exists(_DartDir))
+            {
+                System.IO.Directory.CreateDirectory(_DartDir);
+            }
             if (!System.IO.Directory.Exists(dir))
             {
-                System.Diagnostics.Debug.WriteLine("ディレクトリ作成: " + dir);
-                System.IO.Directory.CreateDirectory(dir);
-
                 System.Console.WriteLine("Dart(" + version + ")をインストール中");
                 string download = "dartsdk-windows-release.zip";
                 string url = "";
@@ -517,22 +517,32 @@ namespace dtenv
                     url = string.Format(Properties.Settings.Default.DartURL, version, "ia32");
                 }
                 System.Net.WebClient wc = new System.Net.WebClient();
-                download = System.IO.Path.Combine(dir, download);
+                download = System.IO.Path.Combine(_DartDir, download);
                 System.Diagnostics.Debug.WriteLine("ダウンロード: " + url + " -> " + download);
                 wc.DownloadFile(url, download);
                 wc.Dispose();
-                ExtractToDirectoryExtensions(download, dir, true);
+                var dart_dir = ExtractToDirectoryExtensions(download, _DartDir, true);
+                dart_dir = System.IO.Path.Combine(_DartDir, dart_dir);
                 System.IO.File.Delete(download);
+                System.IO.Directory.Move(dart_dir, dir);
             }
             return ret_code;
         }
-        static void ExtractToDirectoryExtensions(string sourceArchiveFileName, string destinationDirectoryName, bool overwrite)
+        static string ExtractToDirectoryExtensions(string sourceArchiveFileName, string destinationDirectoryName, bool overwrite)
         {
+            string top_name = "";
             using (ZipArchive archive = ZipFile.OpenRead(sourceArchiveFileName))
             {
+                top_name = System.IO.Directory.GetParent(archive.Entries[0].FullName).FullName.Split('\\').Last();
                 foreach (ZipArchiveEntry entry in archive.Entries)
                 {
-                    var fullPath = System.IO.Path.Combine(destinationDirectoryName, entry.FullName);
+                    var fullPath = System.IO.Path.Combine(destinationDirectoryName, entry.FullName).Replace('/', '\\');
+
+                    var parent = System.IO.Directory.GetParent(fullPath).FullName;
+                    if (!System.IO.Directory.Exists(parent))
+                    {
+                        System.IO.Directory.CreateDirectory(parent);
+                    }
                     if (string.IsNullOrEmpty(entry.Name))
                     {
                         if (!System.IO.Directory.Exists(fullPath))
@@ -556,6 +566,7 @@ namespace dtenv
                     }
                 }
             }
+            return top_name;
         }
     }
 }
