@@ -387,8 +387,16 @@ namespace dtenv
             {
                 return ret_code;
             }
+            if ((ret_code = InstallPackageManager(version)) != ErrorCode.NO_ERROR)
+            {
+                return ret_code;
+            }
             return ret_code;
         }
+
+
+
+
         static string WaitChar()
         {
 
@@ -528,6 +536,58 @@ namespace dtenv
             }
             return ret_code;
         }
+
+        static ErrorCode InstallPackageManager(string version)
+        {
+            ErrorCode ret_code = ErrorCode.NO_ERROR;
+            string dir = System.IO.Path.Combine(_DartDir, version, "bin");
+            string cache_dir = System.IO.Path.Combine(_DartDir, version, Properties.Settings.Default.PubCacheDir);
+            if (!System.IO.Directory.Exists(_DartDir))
+            {
+                return ErrorCode.INVALID_ARGS;
+            }
+            if (!System.IO.Directory.Exists(cache_dir))
+            {
+                System.IO.Directory.CreateDirectory(cache_dir);
+                Process p;
+                string args;
+                if (string.Compare(Version2String(version), Version2String("1.17.0")) >= 0)
+                {
+                    System.Console.WriteLine("pubspec.yamlツール(stagehand)インストール中");
+                    p = new Process();
+                    p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.WorkingDirectory = dir;
+
+                    p.StartInfo.EnvironmentVariables.Add("PUB_CACHE", cache_dir);
+                    p.StartInfo.Arguments = string.Format("/c pub.bat global activate stagehand");
+                    p.Start();
+                    p.WaitForExit();
+
+                    p.Close();
+                }
+                else
+                {
+                    System.Console.WriteLine("pubspec.yamlツール(den)インストール中");
+                    p = new Process();
+                    p = new Process();
+                    p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.WorkingDirectory = dir;
+
+                    p.StartInfo.EnvironmentVariables.Add("PUB_CACHE", cache_dir);
+                    p.StartInfo.Arguments = string.Format("/c pub.bat global activate den");
+                    p.Start();
+                    p.WaitForExit();
+
+                    p.Close();
+                }
+            }
+            return ret_code;
+        }
+
         static string ExtractToDirectoryExtensions(string sourceArchiveFileName, string destinationDirectoryName, bool overwrite)
         {
             string top_name = "";

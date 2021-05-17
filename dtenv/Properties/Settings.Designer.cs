@@ -71,5 +71,17 @@ namespace dtenv.Properties {
                 this["DartURL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pub-cache")]
+        public string PubCacheDir {
+            get {
+                return ((string)(this["PubCacheDir"]));
+            }
+            set {
+                this["PubCacheDir"] = value;
+            }
+        }
     }
 }

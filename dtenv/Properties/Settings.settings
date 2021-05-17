@@ -14,5 +14,8 @@
     <Setting Name="DartURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://storage.googleapis.com/dart-archive/channels/stable/release/{0}/sdk/dartsdk-windows-{1}-release.zip</Value>
     </Setting>
+    <Setting Name="PubCacheDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pub-cache</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
