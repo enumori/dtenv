@@ -2,13 +2,13 @@
 Simple Dart version management
 
 # 1. Installation
-レポジトリのソリューションのビルドを行い、[リリースフォルダーに作成されたファイル](https://github.com/enumori/dtenv/releases/download/2021.05.17/dtenv.zip)を任意のフォルダーに配置します。配置したフォルダーにパスを通します。
+レポジトリのソリューションのビルドを行い、[リリースフォルダーに作成されたファイル](https://github.com/enumori/dtenv/releases/download/2021.05.20/dtenv.zip)を任意のフォルダーに配置します。配置したフォルダーにパスを通します。
 
 もしくは、powershellを起動して以下のコマンドを入力します。
 
 ```
 Set-ExecutionPolicy RemoteSigned -scope Process
-Invoke-WebRequest -Uri "https://github.com/enumori/dtenv/releases/download/2021.05.17/dtenv.zip" -OutFile .\dtenv.zip
+Invoke-WebRequest -Uri "https://github.com/enumori/dtenv/releases/download/2021.05.20/dtenv.zip" -OutFile .\dtenv.zip
 Expand-Archive -Path .\dtenv.zip -DestinationPath $env:USERPROFILE
 Remove-Item .\dtenv.zip
 Rename-Item  $env:USERPROFILE\dtenv  $env:USERPROFILE\.dtenv
